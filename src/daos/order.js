@@ -1,15 +1,11 @@
-const listOrder = require("../models/ListOrder");
+const orderModel = require("../models/order");
 const { findAll, findByCondition } = require("../utils/db");
 
 const {
   Types: { ObjectId },
 } = require("mongoose");
 
-const createListOrder = async ({ menuName, startAt, endAt, order }) => {
-  const listOrder = await listOrder.create({ menuName, startAt, endAt, order });
-  return listOrder;
-};
-const findAllListOrder = async ({
+const findAllOrder = async ({
   key,
   searchFields,
   query,
@@ -21,7 +17,7 @@ const findAllListOrder = async ({
   exclude,
 }) => {
   const { data, metadata } = await findAll({
-    model: listOrder,
+    model: orderModel,
     key,
     searchFields,
     query,
@@ -38,4 +34,23 @@ const findAllListOrder = async ({
   };
 };
 
-module.exports = { createListOrder, findAllListOrder };
+const createOrder = async ({
+  description,
+  userId,
+  foods,
+  appName,
+  store,
+  driver,
+}) => {
+  const order = await orderModel.create({
+    description,
+    orderBy: userId,
+    foods,
+    appName,
+    store,
+    driver,
+  });
+  return order;
+};
+
+module.exports = { createOrder, findAllOrder };

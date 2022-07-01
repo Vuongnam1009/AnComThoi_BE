@@ -19,10 +19,8 @@ const verifyAccessToken = async (req, res) => {
   if (!authorization) throw new CustomError(codes.UNAUTHORIZED);
   const [tokenType, accessToken] = authorization.split(" ");
   if (tokenType !== "Bearer") throw new Error(codes.UNAUTHORIZED);
-  const { user, permissions } = await authService.verifyAccessToken(
-    accessToken
-  );
-  res.send({ status: 1, result: { user, permissions } });
+  const { user } = await authService.verifyAccessToken(accessToken);
+  res.send({ status: 1, result: { user } });
 };
 
 module.exports = { register, login, verifyAccessToken };

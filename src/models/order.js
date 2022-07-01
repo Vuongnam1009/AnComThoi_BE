@@ -5,6 +5,10 @@ const { ObjectId } = mongoose.Types;
 const orderSchema = new Schema(
   {
     description: String,
+    orderBy: {
+      type: ObjectId,
+      ref: "User",
+    },
     foods: [
       {
         foodId: String,
@@ -16,7 +20,6 @@ const orderSchema = new Schema(
     appName: String,
     totalCharge: Number,
     totalPaid: Number,
-    orderBy: ObjectId,
     payer: ObjectId,
     store: { name: String, address: String },
     driver: {

@@ -32,16 +32,9 @@ const login = async (email, password) => {
   return { accessToken, user };
 };
 const verifyAccessToken = async (accessToken) => {
-  const data = await compareAccessToken(accessToken);
-  const user = await userDao.findUser(data.userId);
-  const permissions = data.permissions;
-  return { user, permissions };
+  const { userId } = await compareAccessToken(accessToken);
+  const user = await userDao.findUser(userId);
+  return { user };
 };
-const checkPermission = (comparePermission, permissions) => {
-  const { method, path } = comparePermission;
-  let isPermission = false;
-  if (!permissions[method]) return false;
-  isPermission = permissions[method][path];
-  return isPermission;
-};
-module.exports = { register, login, verifyAccessToken, checkPermission };
+
+module.exports = { register, login, verifyAccessToken };

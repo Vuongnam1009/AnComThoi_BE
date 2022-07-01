@@ -3,11 +3,12 @@ const CustomError = require("../errors/CustomError");
 const codes = require("../errors/code");
 
 const creatListOrder = async (req, res) => {
-  const { menuName, startAt, endAt } = req.body;
+  const { menuName, startAt, endAt, order } = req.body;
   const listOrder = await listOrderService.createListOrder({
     menuName,
     startAt,
     endAt,
+    order,
   });
   return res.send({ status: 1, result: listOrder });
 };
